@@ -3,6 +3,7 @@
 from sezame import manager
 import sezame.stores as stores
 import qrcode
+import os
 
 store = stores.File()
 manager = manager.Manager(store)
@@ -14,9 +15,11 @@ if not manager.is_ready():
 
 client = manager.get_client('https://hqfrontend-dev.seza.me/')
 
-r = client.link_status("sepp")
+username = os.environ['USER']
+
+r = client.link_status(username)
 if not r.is_linked():
-    r = client.link("sepp")
+    r = client.link(username)
 
     qr = qrcode.QRCode(
         version=1,
@@ -32,4 +35,3 @@ if not r.is_linked():
     img.save(f.buffer, 'png')
 else:
     print("alread paired")
-

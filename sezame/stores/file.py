@@ -15,6 +15,8 @@ class File(Store):
         :param basedir: the directory for storing the configuration
         """
         self.basedir = basedir.rstrip('/') + '/'
+        if not os.path.isdir(self.basedir):
+            os.makedirs(self.basedir, 0o700, True)
 
     def write_config(self, config: dict):
         """
