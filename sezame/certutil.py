@@ -4,6 +4,13 @@ from OpenSSL import crypto, SSL
 class CertUtil:
     @staticmethod
     def make_csr(clientcode, email='', country_name='AT'):
+        """
+        build a certificate signing request
+        :param clientcode: the clientcode optained by register
+        :param email: an email address
+        :param country_name: the country name
+        :return: the private key and corresponding csr
+        """
         key = crypto.PKey()
         key.generate_key(crypto.TYPE_RSA, 2048)
 
