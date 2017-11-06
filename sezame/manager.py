@@ -105,10 +105,11 @@ class Manager:
         """
         return self.config['public_key']
 
-    def get_client(self, endpoint=None):
+    def get_client(self, endpoint=None, environment='prod'):
         """
         return new sezame client, configure certificate and private key if present
-        :param endpoint:
+        :param endpoint: url of HQ frontend server
+        :param environment: one of: dev, prod
         :return:
         """
         certfile = self.store.get_certificate_filename()
@@ -118,6 +119,12 @@ class Manager:
         keyfile = self.store.get_private_key_filename()
         if not os.path.isfile(keyfile):
             keyfile = None
+
+        if endpoint is None:
+            if environment == 'dev':
+                endpoint = 'https://hqfrontend-dev.seza.me/'
+            else:
+                endpoint = 'https://hqfrontend-finprin.finprin.com/'
 
         return Client(endpoint=endpoint, cert_file=certfile, private_key_file=keyfile)
 
