@@ -3,4 +3,4 @@ __pycache__/
 *.py[cod]
 bin/sezame-key.pem
 bin/sezame-cert.pem
-bin/sezame-cfg.pem
+bin/sezame-cfg.json
